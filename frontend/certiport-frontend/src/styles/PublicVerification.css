@@ -1,0 +1,703 @@
+/* PublicVerification.css - Complete Styles */
+.verify-container {
+  min-height: 100vh;
+  background: #fbfbfb;
+  position: relative;
+  overflow-x: hidden;
+}
+
+.verify-container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: 
+    radial-gradient(circle at 20% 80%, rgba(120, 119, 198, 0.3) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(255, 255, 255, 0.1) 0%, transparent 50%);
+  pointer-events: none;
+}
+.lo{
+  width: 140px;
+}
+.verify-hero {
+  padding: 120px 20px 60px;
+  text-align: center;
+  position: relative;
+  z-index: 1;
+}
+
+.verify-hero-content {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.hero-icon {
+  width: 64px;
+  height: 64px;
+  margin: 0 auto 1.5rem;
+  color: white;
+  opacity: 0.9;
+}
+
+.verify-title {
+  font-size: 3.5rem;
+  font-weight: 800;
+  color: #0e1123;
+  margin-bottom: 20px;
+  text-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+.verify-subtitle {
+  font-size: 1.25rem;
+  color: #0e1123;
+  max-width: 600px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+.verify-content {
+  display: grid;
+  grid-template-columns: 1fr 400px;
+  gap: 40px;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 20px 60px;
+  position: relative;
+  z-index: 1;
+}
+
+/* Main Verification Card */
+.verify-card {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(20px);
+  border-radius: 24px;
+  padding: 40px;
+  box-shadow: 
+    0 32px 64px rgba(0, 0, 0, 0.1),
+    0 0 0 1px rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.verify-header {
+  margin-bottom: 40px;
+}
+
+.verify-logo-section {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.verify-logo {
+  width: 60px;
+  height: 60px;
+  object-fit: contain;
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.1));
+}
+
+.verify-header h2 {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #1a202c;
+  margin-bottom: 12px;
+}
+
+.verify-header p {
+  color: #64748b;
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+/* Verification Form */
+.verify-form {
+  margin-bottom: 30px;
+}
+
+.input-group {
+  margin-bottom: 30px;
+}
+
+.input-wrapper {
+  position: relative;
+  margin-bottom: 20px;
+}
+
+.input-icon {
+  position: absolute;
+  left: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #64748b;
+  pointer-events: none;
+  width: 20px;
+  height: 20px;
+}
+
+.verify-input {
+  width: 100%;
+  padding: 16px 20px 16px 50px;
+  border: 2px solid #e2e8f0;
+  border-radius: 16px;
+  font-size: 16px;
+  font-weight: 500;
+  background: #f8fafc;
+  transition: all 0.3s ease;
+  box-sizing: border-box;
+}
+
+.verify-input:focus {
+  outline: none;
+  border-color: #0e1123;
+  background: white;
+  box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1);
+}
+
+.verify-input:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  background: #f1f5f9;
+}
+
+.qr-upload-section {
+  margin-top: 20px;
+}
+
+.divider {
+  text-align: center;
+  margin: 20px 0;
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.divider::before,
+.divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: #e2e8f0;
+}
+
+.divider span {
+  padding: 0 16px;
+  color: #64748b;
+  font-size: 14px;
+  font-weight: 500;
+  background: transparent;
+}
+
+.qr-upload-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 14px 24px;
+  border: 2px dashed #cbd5e1;
+  border-radius: 12px;
+  color: #64748b;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  background: #f8fafc;
+  width: 100%;
+}
+
+.qr-upload-btn:hover {
+  border-color: #667eea;
+  color: #667eea;
+  background: #f0f4ff;
+}
+
+.upload-icon {
+  width: 20px;
+  height: 20px;
+}
+
+/* Verify Button */
+.verify-btn {
+  width: 100%;
+  padding: 16px;
+  background: #37bde6;
+  color: white;
+  border: none;
+  border-radius: 16px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+}
+
+.verify-btn:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 35px rgba(102, 126, 234, 0.4);
+}
+
+.verify-btn:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.verify-btn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.btn-icon {
+  width: 20px;
+  height: 20px;
+}
+
+.spinner {
+  width: 20px;
+  height: 20px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  border-top-color: white;
+  animation: spin 0.6s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Error Message */
+.error-message {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 20px;
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+  border-radius: 12px;
+  color: #dc2626;
+  font-weight: 500;
+  margin-top: 20px;
+  animation: slideDown 0.3s ease-out;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.error-icon {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+}
+
+/* Result Card */
+.result-card {
+  margin-top: 30px;
+  padding: 30px;
+  background: linear-gradient(135deg, #f0fff4 0%, #ecfdf5 100%);
+  border: 2px solid #bbf7d0;
+  border-radius: 20px;
+  animation: slideUp 0.5s ease-out;
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.result-header {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.success-icon {
+  width: 60px;
+  height: 60px;
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 20px;
+  color: white;
+  box-shadow: 0 8px 25px rgba(16, 185, 129, 0.3);
+}
+
+.check-icon {
+  width: 36px;
+  height: 36px;
+}
+
+.result-header h3 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #065f46;
+  margin-bottom: 8px;
+}
+
+.result-header p {
+  color: #047857;
+  font-weight: 500;
+  font-size: 0.95rem;
+}
+
+/* Certificate Details */
+.certificate-details {
+  background: white;
+  border-radius: 16px;
+  padding: 24px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.detail-section {
+  margin-bottom: 24px;
+}
+
+.detail-section:last-of-type {
+  margin-bottom: 0;
+}
+
+.section-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #1e293b;
+  margin-bottom: 16px;
+  padding-bottom: 12px;
+  border-bottom: 2px solid #e2e8f0;
+}
+
+.section-icon {
+  width: 20px;
+  height: 20px;
+  color: #37bde6;
+}
+
+.detail-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+}
+
+.detail-item {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.detail-item label {
+  font-size: 13px;
+  font-weight: 600;
+  color: #64748b;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.detail-item span {
+  font-size: 15px;
+  font-weight: 600;
+  color: #1a202c;
+  word-break: break-word;
+}
+
+.cert-id {
+  font-family: 'Courier New', monospace;
+  background: #f1f5f9;
+  padding: 8px 12px;
+  border-radius: 6px;
+  font-size: 13px !important;
+  word-break: break-all;
+  border: 1px solid #e2e8f0;
+}
+
+/* Blockchain Info */
+.blockchain-info {
+  margin: 24px 0;
+  padding: 20px;
+  background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+  border-radius: 12px;
+  border: 1px solid #bfdbfe;
+}
+
+.blockchain-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  background: white;
+  border-radius: 8px;
+  color: #1e40af;
+  font-weight: 600;
+  font-size: 14px;
+  margin-bottom: 12px;
+  box-shadow: 0 2px 4px rgba(30, 64, 175, 0.1);
+}
+
+.badge-icon {
+  width: 16px;
+  height: 16px;
+}
+
+.ipfs-info,
+.tx-info {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 12px;
+  font-size: 13px;
+}
+
+.ipfs-info label,
+.tx-info label {
+  color: #0369a1;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.hash-text,
+.tx-hash {
+  font-family: 'Courier New', monospace;
+  color: #0c4a6e;
+  background: white;
+  padding: 4px 8px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  border: 1px solid #bfdbfe;
+}
+
+/* Action Buttons */
+.certificate-actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-top: 24px;
+}
+
+.action-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 14px 20px;
+  border: none;
+  border-radius: 12px;
+  font-weight: 600;
+  font-size: 15px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.view-btn {
+  background: #0e1123;
+  color: white;
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+}
+
+.download-btn {
+  background: #37bde6;
+  color: white;
+  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+}
+
+.view-btn:hover,
+.download-btn:hover {
+  transform: translateY(-2px);
+  background: #0369a1;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
+
+.view-btn:active,
+.download-btn:active {
+  transform: translateY(0);
+}
+
+/* Information Sidebar */
+.verify-info {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.info-card,
+.security-features {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(20px);
+  border-radius: 20px;
+  padding: 30px;
+  box-shadow: 
+    0 20px 40px rgba(0, 0, 0, 0.1),
+    0 0 0 1px rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.info-card h3,
+.security-features h3 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #1a202c;
+  margin-bottom: 20px;
+}
+
+.steps {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.step {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+}
+
+.step-number {
+  width: 32px;
+  height: 32px;
+  background: #37bde6;
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 14px;
+  flex-shrink: 0;
+}
+
+.step-content h4 {
+  font-size: 16px;
+  font-weight: 600;
+  color: #1a202c;
+  margin-bottom: 4px;
+}
+
+.step-content p {
+  color: #64748b;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.features {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.feature {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: #059669;
+  font-weight: 500;
+}
+
+.feature-icon {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .verify-content {
+    grid-template-columns: 1fr;
+    max-width: 800px;
+  }
+  
+  .verify-title {
+    font-size: 2.5rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .verify-hero {
+    padding: 100px 20px 40px;
+  }
+  
+  .verify-title {
+    font-size: 2rem;
+  }
+  
+  .verify-subtitle {
+    font-size: 1rem;
+  }
+  
+  .verify-card {
+    padding: 24px;
+    border-radius: 16px;
+  }
+  
+  .detail-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+  
+  .certificate-actions {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+  
+  .info-card,
+  .security-features {
+    padding: 20px;
+  }
+  
+  .steps {
+    gap: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .verify-container {
+    padding: 0 10px;
+  }
+  
+  .verify-hero {
+    padding: 80px 15px 30px;
+  }
+  
+  .verify-title {
+    font-size: 1.75rem;
+  }
+  
+  .verify-card {
+    padding: 20px;
+  }
+  
+  .verify-input {
+    font-size: 16px;
+    padding: 14px 16px 14px 45px;
+  }
+  
+  .result-card {
+    padding: 20px;
+  }
+  
+  .certificate-details {
+    padding: 16px;
+  }
+  
+  .blockchain-info {
+    padding: 16px;
+  }
+}
