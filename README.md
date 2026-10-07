@@ -1,337 +1,144 @@
-# Certiport — Blockchain-Based University Certificate Issuance & Verification System
+# academic-certificate-platform
 
-A decentralized, multi-role web platform for issuing and verifying academic certificates. Universities issue certificates that are stored on IPFS and registered on the Ethereum blockchain — making them tamper-proof and publicly verifiable by anyone using a unique Blockchain ID.
+An application for issuing, storing, and verifying university certificates. Universities can create certificates from their own templates, students can access the certificates issued to them, and anyone can verify a certificate using its blockchain ID.
 
----
+The project combines a React frontend, an Express API, MongoDB, IPFS, and a Solidity smart contract.
 
-## System Overview
+## What it includes
 
-| Layer | Technology |
-|---|---|
-| Frontend | React.js |
-| Backend | Node.js, Express.js |
-| Database | MongoDB |
-| Blockchain | Solidity, Ethereum/Polygon, Hardhat |
-| Decentralized Storage | IPFS via Pinata |
-| PDF Generation | Puppeteer + EJS Templates |
-| Authentication | JWT (JSON Web Tokens) |
-| QR Code | Custom QR generation per certificate |
+- Separate dashboards for administrators, universities, and students
+- University registration and admin approval
+- Certificate templates built with EJS
+- PDF generation with Puppeteer
+- Certificate files uploaded to IPFS through Pinata
+- Certificate records stored on the Ethereum-compatible blockchain
+- Public certificate verification without signing in
+- JWT-based authentication and role-based access control
+- QR codes and downloadable certificate PDFs
 
----
+## Tech stack
 
-## How It Works
+- **Frontend:** React
+- **API:** Node.js and Express
+- **Database:** MongoDB with Mongoose
+- **Smart contract:** Solidity 0.8.19 and Hardhat
+- **File storage:** IPFS through Pinata
+- **PDFs:** Puppeteer and EJS
+- **Authentication:** JSON Web Tokens
 
-```
-University issues certificate
-        ↓
-PDF generated from EJS template + student data
-        ↓
-PDF uploaded to IPFS via Pinata → returns IPFS Hash
-        ↓
-IPFS Hash registered on Ethereum blockchain → returns Blockchain ID
-        ↓
-Student receives certificate 
-        ↓
-Anyone can verify using Blockchain ID on public portal
-```
+## Repository layout
 
----
-
-## Roles & Features
-
-### 🔐 Admin
-- Approve or reject university registration requests
-- Manage all users across the platform
-- View platform-wide certificate activity
-
-### 🏛️ University
-- Register on the platform (subject to admin approval)
-- Upload custom EJS certificate templates (marks card, transfer, migration, grade card)
-- Issue certificates to students by filling dynamic form fields
-- View all issued certificates and their blockchain status
-- Revoke certificates if needed
-
-### 🎓 Student
-- Register under an approved university
-- View all certificates issued to them
-- Download certificates as PDF
-- View IPFS-stored certificate and blockchain transaction details
-
-### 🌐 Public (No Login Required)
-- Verify any certificate using its Blockchain ID
-- Instantly see if a certificate is valid, revoked, or non-existent
-- View full certificate metadata and IPFS link
-
----
-
-## Key Technical Features
-
-**Tamper-Proof Certificates**
-Each certificate's IPFS hash is stored on the Ethereum blockchain. Any tampering with the PDF would produce a different hash — making forgery detectable.
-
-**Immutable Blockchain ID**
-Every certificate gets a unique ID like `UN01-CERT-ABC123-20250101`. This ID is stored on-chain and in MongoDB. Anyone can verify using just this ID.
-
-**Dynamic Certificate Templates**
-Universities upload EJS templates. The backend renders them with student-specific data and generates a PDF using Puppeteer — no hardcoded certificate layouts.
-
-**Role-Based Access Control**
-JWT-based authentication with role checks on every protected route — Admin, University, and Student each see only what they're authorized to see.
-
-**Duplicate Prevention**
-Smart contract enforces that the same Blockchain ID cannot be issued twice — preventing duplicate certificates at the blockchain level.
-
----
-
-## Project Structure
-
-```
-Certiport/
+```text
+academic-certificate-platform/
 ├── backend/
-│   ├── controllers/          # Business logic per role
-│   │   ├── adminController.js
-│   │   ├── authController.js
-│   │   ├── publicController.js
-│   │   ├── studentController.js
-│   │   ├── templateController.js
-│   │   └── universityController.js
-│   ├── middleware/
-│   │   └── auth.js           # JWT verification middleware
+│   ├── controllers/
 │   ├── models/
-│   │   ├── Certificate.js    # Certificate schema with blockchain fields
-│   │   ├── Template.js       # EJS template schema
-│   │   └── User.js           # Multi-role user schema
-│   ├── routes/               # Express route definitions
-│   ├── templates/            # EJS certificate templates
-│   │   ├── un02/
-│   │   └── un03/
+│   ├── routes/
+│   ├── templates/
 │   ├── utils/
-│   │   ├── pdfGenerator.js   # Puppeteer PDF rendering
-│   │   ├── pinata.js         # IPFS upload via Pinata SDK
-│   │   └── qr.js             # QR code generation
-│   ├── .env.example
 │   └── server.js
 ├── contracts/
 │   ├── contracts/
-│   │   └── CertificateRegistry.sol   # Solidity smart contract
 │   ├── scripts/
-│   │   └── deploy.js
-│   ├── hardhat.config.js
-│   └── .env.example
+│   └── hardhat.config.js
 ├── frontend/
 │   └── certiport-frontend/
-│       ├── src/
-│       │   ├── pages/
-│       │   │   ├── AdminDashboard.js
-│       │   │   ├── UniversityDashboard.js
-│       │   │   ├── StudentDashboard.js
-│       │   │   ├── PublicVerify.js
-│       │   │   ├── LandingPage.js
-│       │   │   ├── Login.js
-│       │   │   └── Register.js
-│       │   ├── components/
-│       │   ├── services/
-│       │   ├── utils/
-│       │   └── styles/
-│       └── .env.example
-└── Certiport-documentation.pdf
+├── .gitignore
+└── README.md
 ```
 
----
+## Running the project locally
 
-## Smart Contract
+### Requirements
 
-```solidity
-// CertificateRegistry.sol
-contract CertificateRegistry {
-    struct Certificate {
-        string certificateId;
-        string ipfsHash;
-        address issuer;
-        uint256 issuedAt;
-    }
+- Node.js 18 or newer
+- MongoDB, either locally or through MongoDB Atlas
+- A Pinata account if certificates should be uploaded to IPFS
+- MetaMask or another Ethereum wallet for a test network deployment
 
-    mapping(string => Certificate) public certificates;
-
-    function issueCertificate(string memory certificateId, string memory ipfsHash) public {
-        require(bytes(certificates[certificateId].certificateId).length == 0, "Already exists");
-        // stores certificate on-chain with issuer address and timestamp
-    }
-
-    function getCertificate(string memory certificateId) public view returns (...) {
-        // anyone can verify a certificate using its ID
-    }
-}
-```
-
-Deployed on: **Polygon / Local Hardhat Network**
-
----
-
-## Getting Started
-
-### Prerequisites
-- Node.js v18+
-- MongoDB (local or Atlas)
-- MetaMask wallet + test ETH
-- Pinata account (for IPFS)
-- Hardhat (for smart contract deployment)
-
----
-
-### 1. Clone the Repository
+### 1. Clone the repository
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/Certiport.git
-cd Certiport
+git clone https://github.com/BhumilNariya/academic-certificate-platform.git
+cd academic-certificate-platform
 ```
 
----
+### 2. Start the local blockchain
 
-### 2. Setup Backend
-
-```bash
-cd backend
-npm install
-cp .env.example .env
-# fill in your values
-npm run dev
-```
-
-```env
-PORT=5000
-MONGO_URI=mongodb://localhost:27017/certiport
-JWT_SECRET=your_jwt_secret_here
-PINATA_API_KEY=your_pinata_api_key
-PINATA_API_SECRET=your_pinata_api_secret
-ETH_PRIVATE_KEY=your_eth_private_key
-RPC_URL=http://127.0.0.1:8545
-CONTRACT_ADDRESS=0x...
-ADMIN_EMAIL=admin@example.com
-ADMIN_PASSWORD=change_this
-```
-
----
-
-### 3. Deploy Smart Contract
+Open a terminal in `contracts` and install the dependencies:
 
 ```bash
 cd contracts
 npm install
-cp .env.example .env
-# fill in RPC_URL and PRIVATE_KEY
+npx hardhat node
+```
 
-# Terminal 1 - run local node
-npm run node
+Keep this terminal running. Hardhat will print test accounts and private keys for the local network.
 
-# Terminal 2 - deploy contract
-npm run deploy:localhost
+### 3. Configure and deploy the contract
+
+Copy the example environment file and add the private key of one of the local Hardhat accounts:
+
+```bash
+copy .env.example .env
+```
+
+The contract deployment uses the local network:
+
+```bash
+npx hardhat run scripts/deploy.js --network localhost
 ```
 
 Copy the deployed contract address into `backend/.env` as `CONTRACT_ADDRESS`.
 
----
+### 4. Start the backend
 
-### 4. Setup Frontend
+Open another terminal:
+
+```bash
+cd backend
+npm install
+copy .env.example .env
+npm run dev
+```
+
+Update `backend/.env` with your MongoDB connection string, JWT secret, Pinata credentials, blockchain settings, and admin account details.
+
+The API runs on `http://localhost:5000` by default.
+
+### 5. Start the frontend
+
+Open a third terminal:
 
 ```bash
 cd frontend/certiport-frontend
 npm install
-```
-
-Create `.env`:
-
-```env
-REACT_APP_API_URL=http://localhost:5000/api
-REACT_APP_CONTRACT_ADDRESS=0x...
-```
-
-```bash
+copy .env.example .env
 npm start
 ```
 
-Open `http://localhost:3000`
+The frontend opens at `http://localhost:3000`.
 
----
+## Environment variables
 
-## Screenshots
+The repository contains `.env.example` files for the backend, contracts, and frontend. Create local `.env` files from those examples and replace the placeholder values.
 
-### Landing Page
-<img width="1918" height="1078" alt="Certiport-landing page" src="https://github.com/user-attachments/assets/4566ff3f-5a1e-4933-a95a-19e234a958f3" />
+Never commit `.env` files, private keys, JWT secrets, database credentials, or Pinata credentials. They are excluded by `.gitignore`.
 
+## Main user flows
 
-### Public Certificate Verification
-<img width="1917" height="1077" alt="certiport-publicverify" src="https://github.com/user-attachments/assets/de46d5a5-27bb-4d21-be1d-f1d5304608c0" />
+1. An administrator approves a university account.
+2. The university creates or uploads a certificate template.
+3. Certificate information is submitted for a student.
+4. The backend renders the template as a PDF and uploads it to IPFS.
+5. The IPFS hash and certificate ID are registered in the smart contract.
+6. The student can view or download the certificate.
+7. Anyone can check the certificate status through the public verification page.
 
+## Notes
 
-### University Dashboard
-<img width="1901" height="1073" alt="certiport-university" src="https://github.com/user-attachments/assets/0dcbaf67-3950-425c-b37c-0f8134d8ac04" />
+- The local Hardhat network is intended for development and testing.
+- A deployed contract address is required before issuing certificates.
+- MongoDB must be running before the backend can serve authenticated features.
+- Uploaded files and local secrets are intentionally not tracked in Git.
 
-
-
-### Student Dashboard
-<img width="1912" height="1078" alt="certiport-student" src="https://github.com/user-attachments/assets/83ff638c-2f1e-4939-8f2c-78738f442913" />
-
-
-### Admin Dashboard
-<img width="1917" height="1078" alt="certiport-admin" src="https://github.com/user-attachments/assets/c149ccbe-38c2-4219-aed1-b7b81d93f083" />
-
-
-
-### Login & Register
-<img width="1915" height="1078" alt="Certiport-login " src="https://github.com/user-attachments/assets/cdf76fd2-4a3c-42f0-95f4-dab099cacc6e" />
-<img width="1915" height="1077" alt="certiport-register" src="https://github.com/user-attachments/assets/97af88c7-5f21-430f-bd6a-e7a70cef4b0d" />
-
-
----
-
-## Documentation
-
-📄 [Full Project Documentation](./Certiport-documentation.pdf)
-
----
-
-## API Routes
-
-| Method | Endpoint | Role | Description |
-|---|---|---|---|
-| POST | `/api/auth/login` | All | Login |
-| POST | `/api/auth/register` | Public | Register |
-| GET | `/api/public/verify/:blockchainId` | Public | Verify certificate |
-| GET | `/api/public/download/:blockchainId` | Public | Download certificate PDF |
-| POST | `/api/university/issue` | University | Issue a certificate |
-| GET | `/api/university/certificates` | University | View issued certificates |
-| POST | `/api/template/upload` | University | Upload EJS template |
-| GET | `/api/student/certificates` | Student | View my certificates |
-| GET | `/api/admin/universities` | Admin | View all universities |
-| PUT | `/api/admin/approve/:id` | Admin | Approve university |
-
----
-
-## Known Limitations & Future Improvements
-
-- Email notifications to students upon certificate issuance (planned)
-- Currently runs on local Hardhat or Polygon testnet — mainnet deployment pending
-- Template editor UI for universities (currently requires manual EJS upload)
-- Bulk certificate issuance via CSV upload (planned)
-- Mobile-responsive UI improvements
-
----
-
-## Built With
-
-- [React.js](https://react.dev/)
-- [Node.js](https://nodejs.org/)
-- [Express.js](https://expressjs.com/)
-- [MongoDB](https://www.mongodb.com/)
-- [Hardhat](https://hardhat.org/)
-- [Solidity](https://soliditylang.org/)
-- [Pinata (IPFS)](https://www.pinata.cloud/)
-- [Puppeteer](https://pptr.dev/)
-- [Ethers.js](https://docs.ethers.org/)
-
----
-
-## License
-
-This project is licensed under the MIT License.
