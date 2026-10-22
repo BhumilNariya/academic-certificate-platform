@@ -722,7 +722,15 @@ export default function UniversityDashboard() {
                       <td>{new Date(cert.dateOfIssue).toLocaleDateString()}</td>
                       <td><span className={`status-badge status-${cert.status}`}>{cert.status}</span></td>
                       <td className="actions-cell">
-                        <button className="view-btn" onClick={() => window.open(`http://localhost:5000/${cert.pdfPath}`, '_blank')}>View</button>
+                        <button
+                          className="view-btn"
+                          onClick={() => window.open(
+                            `http://localhost:5000/api/public/certificate/${encodeURIComponent(cert.blockchainId)}/view`,
+                            '_blank'
+                          )}
+                        >
+                          View
+                        </button>
                         {cert.status !== 'revoked' && <button className="revoke-btn" onClick={() => handleRevoke(cert._id)}>Revoke</button>}
                       </td>
                     </tr>

@@ -147,7 +147,11 @@ async function downloadCertificate(req, res) {
     }
     
     // Get PDF file path
-    const pdfPath = path.join(__dirname, '..', certificate.pdfPath);
+    const pdfPath = path.join(
+      __dirname,
+      '..',
+      certificate.pdfPath.replace(/^[/\\]+/, '')
+    );
     
     // Check if file exists
     if (!fs.existsSync(pdfPath)) {
@@ -205,7 +209,11 @@ async function viewCertificate(req, res) {
     }
     
     // Get PDF file path
-    const pdfPath = path.join(__dirname, '..', certificate.pdfPath);
+    const pdfPath = path.join(
+      __dirname,
+      '..',
+      certificate.pdfPath.replace(/^[/\\]+/, '')
+    );
     
     // Check if file exists
     if (!fs.existsSync(pdfPath)) {

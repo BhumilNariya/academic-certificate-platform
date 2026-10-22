@@ -2,56 +2,69 @@
 <html>
 <head>
   <meta charset="UTF-8">
-  <title>Marks Card</title>
+  <title>Semester Marks Card</title>
   <style>
-    body { font-family: "Times New Roman", serif; margin: 40px; text-align: center; }
-    .logo img { width: 100px; margin-bottom: 10px; }
-    .university { font-size: 24px; font-weight: bold; color: #002147; }
-    .title { font-size: 20px; margin: 10px 0; }
-    .student-details { font-size: 16px; margin: 20px 0; }
-    table { width: 90%; margin: 0 auto; border-collapse: collapse; font-size: 15px; }
-    table, th, td { border: 1px solid black; padding: 8px; }
-    th { background: #f2f2f2; }
-    .footer { margin-top: 40px; display: flex; justify-content: space-between; }
-    .signature { text-align: right; }
+    @page { size: A4; margin: 0; }
+    * { box-sizing: border-box; }
+    body { margin: 0; padding: 24mm 18mm; font-family: Arial, Helvetica, sans-serif; color: #17233c; background: #fff; }
+    .certificate { min-height: 245mm; border: 2px solid #17345f; padding: 7mm; position: relative; }
+    .certificate::before { content: ""; position: absolute; inset: 3mm; border: 1px solid #c59a45; pointer-events: none; }
+    .header, .content, .footer { position: relative; z-index: 1; }
+    .header { text-align: center; border-bottom: 1px solid #d9c08a; padding: 2mm 8mm 5mm; }
+    .crest { width: 22mm; height: 22mm; margin: 0 auto 3mm; border: 2px solid #c59a45; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #c59a45; font-size: 9px; font-weight: bold; letter-spacing: 1px; }
+    .university { margin: 0; color: #17345f; font-size: 22px; letter-spacing: .5px; }
+    .subtitle { margin: 2mm 0 0; color: #667085; font-size: 10px; letter-spacing: 2px; text-transform: uppercase; }
+    .title { margin: 6mm 0 1mm; color: #a47724; font-size: 18px; letter-spacing: 2px; font-weight: bold; }
+    .document-id { color: #667085; font-size: 9px; }
+    .content { padding: 8mm 8mm 0; }
+    .section-label { color: #a47724; font-size: 10px; font-weight: bold; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 3mm; }
+    .details { display: grid; grid-template-columns: 1fr 1fr; gap: 3mm 12mm; padding: 5mm; background: #f7f9fc; border-left: 3px solid #c59a45; }
+    .detail-label { display: block; color: #667085; font-size: 9px; text-transform: uppercase; letter-spacing: .7px; margin-bottom: 1mm; }
+    .detail-value { font-size: 12px; font-weight: bold; color: #17233c; }
+    table { width: 100%; border-collapse: collapse; margin-top: 8mm; font-size: 10px; }
+    th { background: #17345f; color: #fff; font-size: 9px; text-transform: uppercase; letter-spacing: .5px; }
+    th, td { padding: 3.5mm; border: 1px solid #d9e0ea; text-align: left; }
+    th:not(:first-child), td:not(:first-child) { text-align: center; }
+    tbody tr:nth-child(even) { background: #f7f9fc; }
+    .footer { margin: 14mm 8mm 0; display: flex; justify-content: space-between; align-items: end; }
+    .issue { color: #667085; font-size: 9px; line-height: 1.7; }
+    .issue strong { color: #17233c; }
+    .qr { text-align: center; min-width: 32mm; }
+    .qr img { width: 24mm; height: 24mm; }
+    .qr span { display: block; color: #667085; font-size: 8px; margin-top: 1mm; }
+    .signature { width: 42mm; border-top: 1px solid #17233c; text-align: center; padding-top: 2mm; font-size: 9px; color: #17233c; }
+    .disclaimer { margin-top: 8mm; text-align: center; color: #8a94a6; font-size: 8px; }
   </style>
 </head>
 <body>
-  <div class="university"><%= universityName %></div>
-  <div class="title">Semester Marks Card</div>
-
-  <div class="student-details">
-    Name: <%= studentName %><br>
-    Register No: <%= registerNo %><br>
-    Course: <%= course %><br>
-    Semester: <%= semester %><br>
-    Exam Date: <%= examDate %>
-  </div>
-
-  <table>
-    <thead>
-      <tr>
-        <th>Subject</th>
-        <th>Maximum Marks</th>
-        <th>Marks Obtained</th>
-        <th>Grade</th>
-      </tr>
-    </thead>
-    <tbody>
-      <% subjects.forEach(function(sub){ %>
-        <tr>
-          <td><%= sub.name %></td>
-          <td><%= sub.maxMarks %></td>
-          <td><%= sub.obtainedMarks %></td>
-          <td><%= sub.grade %></td>
-        </tr>
-      <% }) %>
-    </tbody>
-  </table>
-
-  <div class="footer">
-    <div>Seal</div>
-    <div class="signature">Controller of Examinations</div>
-  </div>
+  <main class="certificate">
+    <header class="header">
+      <div class="crest">CERT</div>
+      <h1 class="university"><%= universityName %></h1>
+      <p class="subtitle">Office of the Controller of Examinations</p>
+      <div class="title">Semester Marks Card</div>
+      <div class="document-id">Official Academic Record</div>
+    </header>
+    <section class="content">
+      <div class="section-label">Student Information</div>
+      <div class="details">
+        <div><span class="detail-label">Student Name</span><span class="detail-value"><%= studentName %></span></div>
+        <div><span class="detail-label">Register Number</span><span class="detail-value"><%= registerNo || enrollmentNumber %></span></div>
+        <div><span class="detail-label">Course / Programme</span><span class="detail-value"><%= course %></span></div>
+        <div><span class="detail-label">Semester</span><span class="detail-value"><%= semester %></span></div>
+      </div>
+      <div class="section-label" style="margin-top: 8mm;">Academic Performance</div>
+      <table>
+        <thead><tr><th>Subject</th><th>Maximum Marks</th><th>Marks Obtained</th><th>Grade</th></tr></thead>
+        <tbody><% (subjects || []).forEach(function(sub){ %><tr><td><%= sub.name %></td><td><%= sub.maxMarks %></td><td><%= sub.obtainedMarks %></td><td><%= sub.grade %></td></tr><% }) %></tbody>
+      </table>
+    </section>
+    <footer class="footer">
+      <div class="issue"><div><strong>Date of Examination:</strong> <%= examDate %></div><div><strong>Date of Issue:</strong> <%= issueDate %></div><div><strong>Blockchain ID:</strong> <%= blockchainId %></div></div>
+      <% if (typeof qrCodeData !== 'undefined' && qrCodeData) { %><div class="qr"><img src="<%= qrCodeData %>" alt="Verification QR"><span>Scan to verify</span></div><% } %>
+      <div class="signature">Controller of Examinations</div>
+    </footer>
+    <div class="disclaimer">This digitally verifiable document is issued by <%= universityName %>.</div>
+  </main>
 </body>
 </html>

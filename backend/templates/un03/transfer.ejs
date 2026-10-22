@@ -4,33 +4,29 @@
   <meta charset="UTF-8">
   <title>Transfer Certificate</title>
   <style>
-    body { font-family: "Times New Roman", serif; margin: 40px; text-align: center; }
-    .logo img { width: 100px; margin-bottom: 10px; }
-    .university { font-size: 24px; font-weight: bold; color: #002147; }
-    .title { font-size: 20px; margin: 10px 0; }
-    .content { font-size: 16px; margin: 30px auto; width: 80%; text-align: left; line-height: 1.6; }
-    .footer { margin-top: 60px; display: flex; justify-content: space-between; }
-    .signature { text-align: right; }
+    @page { size: A4; margin: 0; } * { box-sizing: border-box; }
+    body { margin: 0; padding: 24mm 18mm; font-family: Arial, Helvetica, sans-serif; color: #17233c; }
+    .certificate { min-height: 245mm; border: 2px solid #17345f; padding: 7mm; position: relative; }
+    .certificate::before { content: ""; position: absolute; inset: 3mm; border: 1px solid #c59a45; }
+    header, section, footer { position: relative; z-index: 1; }
+    header { text-align: center; border-bottom: 1px solid #d9c08a; padding: 2mm 8mm 5mm; }
+    .crest { width: 22mm; height: 22mm; margin: 0 auto 3mm; border: 2px solid #c59a45; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #c59a45; font-size: 9px; font-weight: bold; letter-spacing: 1px; }
+    h1 { margin: 0; color: #17345f; font-size: 22px; } .subtitle { color: #667085; font-size: 10px; letter-spacing: 2px; text-transform: uppercase; margin: 2mm 0 0; }
+    .title { color: #a47724; font-size: 18px; letter-spacing: 2px; font-weight: bold; margin: 6mm 0 0; }
+    section { padding: 12mm 10mm; } .intro { color: #a47724; font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase; font-weight: bold; }
+    .statement { margin-top: 8mm; padding: 9mm; background: #f7f9fc; border-left: 3px solid #c59a45; font-family: Georgia, serif; font-size: 16px; line-height: 2; text-align: justify; }
+    .meta { display: grid; grid-template-columns: 1fr 1fr; gap: 4mm 12mm; margin-top: 10mm; } .meta div { border-bottom: 1px solid #d9e0ea; padding-bottom: 2mm; }
+    .label { display: block; color: #667085; font-size: 9px; text-transform: uppercase; letter-spacing: .7px; } .value { font-size: 11px; font-weight: bold; }
+    footer { margin: 15mm 10mm 0; display: flex; justify-content: space-between; align-items: end; font-size: 9px; }
+    .qr img { width: 24mm; height: 24mm; } .qr { text-align: center; color: #667085; } .qr span { display: block; font-size: 8px; }
+    .signature { width: 45mm; border-top: 1px solid #17233c; text-align: center; padding-top: 2mm; } .seal { width: 25mm; height: 25mm; border: 1px solid #c59a45; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #a47724; }
   </style>
 </head>
-<body>
-  <div class="university"><%= universityName %></div>
-  <div class="title">TRANSFER CERTIFICATE</div>
-
-  <div class="content">
-    This is to certify that <b><%= studentName %></b>, son/daughter of <b><%= parentName %></b>, 
-    was a bonafide student of <b><%= collegeName %></b>.  
-    He/She was admitted on <b><%= admissionDate %></b> and left the college on <b><%= leavingDate %></b>.  
-    During his/her study, he/she pursued the <b><%= course %></b> course.  
-
-    <br><br>
-    This certificate is issued on <b><%= issueDate %></b> with Register No: <b><%= registerNo %></b>  
-    and Transfer Certificate No: <b><%= tcNumber %></b>.
-  </div>
-
-  <div class="footer">
-    <div>Seal</div>
-    <div class="signature">Principal / Registrar</div>
-  </div>
-</body>
+<body><main class="certificate">
+  <header><div class="crest">CERT</div><h1><%= universityName %></h1><div class="subtitle">Office of the Registrar</div><div class="title">Transfer Certificate</div></header>
+  <section><div class="intro">Official Student Record</div><div class="statement">This is to certify that <strong><%= studentName %></strong>, son/daughter of <strong><%= parentName %></strong>, was a bonafide student of <strong><%= collegeName || universityName %></strong>. The student was admitted on <strong><%= admissionDate %></strong> and left the institution on <strong><%= leavingDate %></strong> after pursuing <strong><%= course %></strong>.</div>
+    <div class="meta"><div><span class="label">Register Number</span><span class="value"><%= registerNo %></span></div><div><span class="label">Transfer Certificate No.</span><span class="value"><%= tcNumber %></span></div><div><span class="label">Date of Issue</span><span class="value"><%= issueDate %></span></div><div><span class="label">Status</span><span class="value">Issued</span></div></div>
+  </section>
+  <footer><div class="seal">OFFICIAL<br>SEAL</div><% if (typeof qrCodeData !== 'undefined' && qrCodeData) { %><div class="qr"><img src="<%= qrCodeData %>" alt="Verification QR"><span>Scan to verify</span></div><% } %><div class="signature">Principal / Registrar</div></footer>
+</main></body>
 </html>

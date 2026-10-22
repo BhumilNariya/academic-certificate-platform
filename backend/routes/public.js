@@ -3,6 +3,7 @@ const express = require('express');
 const router = express.Router();
 const User = require('../models/User');
 const Certificate = require('../models/Certificate');
+const { viewCertificate } = require('../controllers/publicController');
 
 /**
  * @route   GET /api/public/approved-universities
@@ -148,5 +149,12 @@ router.get('/certificate/:blockchainId/download', async (req, res) => {
     });
   }
 });
+
+/**
+ * @route   GET /api/public/certificate/:blockchainId/view
+ * @desc    View certificate PDF by blockchain ID
+ * @access  Public
+ */
+router.get('/certificate/:blockchainId/view', viewCertificate);
 
 module.exports = router;

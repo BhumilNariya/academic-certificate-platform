@@ -4,39 +4,25 @@
   <meta charset="UTF-8">
   <title>Degree Certificate</title>
   <style>
-    body { font-family: "Times New Roman", serif; margin: 40px; text-align: center; }
-    .logo img { width: 100px; margin-bottom: 10px; }
-    .university { font-size: 26px; font-weight: bold; color: #002147; }
-    .faculty { font-size: 18px; margin-bottom: 10px; color: #333; }
-    .title { font-size: 22px; margin: 15px 0; text-transform: uppercase; }
-    .content { font-size: 16px; margin: 30px auto; width: 80%; text-align: left; line-height: 1.6; }
-    .footer { margin-top: 80px; display: flex; justify-content: space-between; }
-    .signature { text-align: right; }
+    @page { size: A4; margin: 0; } * { box-sizing: border-box; }
+    body { margin: 0; padding: 24mm 18mm; font-family: Georgia, "Times New Roman", serif; color: #17233c; }
+    .certificate { min-height: 245mm; border: 2px solid #17345f; padding: 8mm; position: relative; text-align: center; }
+    .certificate::before { content: ""; position: absolute; inset: 3mm; border: 1px solid #c59a45; } header, section, footer { position: relative; z-index: 1; }
+    .crest { width: 24mm; height: 24mm; margin: 0 auto 4mm; border: 2px solid #c59a45; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #c59a45; font: bold 9px Arial; letter-spacing: 1px; }
+    h1 { margin: 0; color: #17345f; font: bold 25px Arial, sans-serif; } .faculty { margin-top: 2mm; color: #667085; font: 10px Arial, sans-serif; letter-spacing: 1.5px; text-transform: uppercase; }
+    .title { margin: 13mm 0 4mm; color: #a47724; font: bold 20px Arial, sans-serif; letter-spacing: 3px; } .lead { color: #667085; font: 12px Arial, sans-serif; }
+    .recipient { margin: 13mm auto 8mm; color: #17345f; font-size: 25px; font-weight: bold; border-bottom: 1px solid #c59a45; padding-bottom: 3mm; width: 78%; }
+    .statement { margin: 0 auto; width: 82%; font-size: 16px; line-height: 2; } .meta { margin: 12mm auto 0; width: 78%; display: grid; grid-template-columns: 1fr 1fr; gap: 4mm 10mm; font: 11px Arial, sans-serif; text-align: left; }
+    .meta div { border-bottom: 1px solid #d9e0ea; padding: 2mm; } .label { color: #667085; font-size: 9px; text-transform: uppercase; display: block; } .value { font-weight: bold; }
+    footer { margin: 18mm 7mm 0; display: flex; justify-content: space-between; align-items: end; font: 10px Arial, sans-serif; } .seal { width: 26mm; height: 26mm; border: 1px solid #c59a45; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #a47724; }
+    .qr img { width: 24mm; height: 24mm; } .qr span { display: block; color: #667085; font-size: 8px; margin-top: 1mm; } .signature { width: 48mm; border-top: 1px solid #17233c; padding-top: 2mm; }
   </style>
 </head>
-<body>
-  <div class="university"><%= universityName %></div>
-  <div class="faculty"><%= faculty %></div>
-  <div class="title">DEGREE CERTIFICATE</div>
-
-  <div class="content">
-    This is to certify that <b><%= studentName %></b>, Register No: <b><%= registerNo %></b>, 
-    has successfully completed the <b><%= course %></b> program with <b><%= complementaryCourses %></b>.  
-
-    The candidate has fulfilled all requirements for the award of the <b><%= degree %></b> degree and 
-    has been declared to have passed with <b><%= className %></b> class, securing an overall grade of <b><%= grade %></b>.  
-
-    <br><br>
-    The program was completed on <b><%= programCompletionDate %></b> and this certificate 
-    (No: <b><%= certificateNo %></b>) is issued on <b><%= issueDate %></b>.
-  </div>
-
-  <div class="footer">
-    <div>Seal</div>
-    <div class="signature">
-      <b><%= viceChancellorName %></b><br>
-      Vice Chancellor
-    </div>
-  </div>
-</body>
+<body><main class="certificate">
+  <header><div class="crest">CERT</div><h1><%= universityName %></h1><div class="faculty"><%= faculty %></div><div class="title">Degree Certificate</div><div class="lead">This certificate is awarded with the authority of the Academic Council</div></header>
+  <section><div class="recipient"><%= studentName %></div><div class="statement">having Register No. <strong><%= registerNo %></strong>, has successfully completed the <strong><%= course %></strong> programme and fulfilled all requirements for the award of the <strong><%= degree %></strong> degree with <strong><%= className %></strong> class and an overall grade of <strong><%= grade %></strong>.</div>
+    <div class="meta"><div><span class="label">Complementary Courses</span><span class="value"><%= complementaryCourses %></span></div><div><span class="label">Programme Completion</span><span class="value"><%= programCompletionDate %></span></div><div><span class="label">Certificate Number</span><span class="value"><%= certificateNo %></span></div><div><span class="label">Date of Issue</span><span class="value"><%= issueDate %></span></div></div>
+  </section>
+  <footer><div class="seal">OFFICIAL<br>SEAL</div><% if (typeof qrCodeData !== 'undefined' && qrCodeData) { %><div class="qr"><img src="<%= qrCodeData %>" alt="Verification QR"><span>Scan to verify</span></div><% } %><div class="signature"><%= viceChancellorName %><br>Vice Chancellor</div></footer>
+</main></body>
 </html>
